@@ -2,7 +2,6 @@ import os
 import csv
 budget_data = "budget_data.csv"
 
-#Variables
 total_revenue = 0
 total_months = 0
 starting_revenue = 0
@@ -13,24 +12,20 @@ revenue_change = []
 date = []
 new_date = 0
 
-#Read CSV File
 with open(budget_data, newline="") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     header = next(csvreader)
 
-    #Loop through all the rows of data
     for row in csvreader:  
         total_months  = total_months + 1
         total_revenue += int(row[1])
         date.append(row[0])
-        #Find the changes
+        
         revenue_change.append(int(row[1]) - starting_revenue)
 
-        #Finding greatest increase
         if ( int(row[1]) - starting_revenue > greatest_increase):
             greatest_increase = int(row[1]) - starting_revenue
 
-        #Finding greatest decrease
         if ( int(row[1]) - starting_revenue < greatest_decrease):
             greatest_decrease = int(row[1]) - starting_revenue
 
@@ -61,6 +56,5 @@ analysis= "Financial Analysis"+'\n'+ \
 "Greatest Decrease: " + date_decrease + " ($" +  str(greatest_decrease) + ")"
 print(analysis)
 
-#Export text file
 with open(os.path.join(os.path.dirname(__file__),"pybank.txt"), "w") as file:
     file.write(analysis)
